@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: db-init-lijolo-index-001
+      author: system
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: name_01
+            indexName: person_name_01_index
+            tableName: person
+  - changeSet:
+      id: db-init-lijolo-index-002
+      author: system
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: person_nr
+            indexName: anschrift_person_nr_index
+            tableName: anschrift
