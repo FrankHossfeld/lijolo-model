@@ -27,6 +27,5 @@ public class LiJoLoLiquiBaseTestContainer {
     } catch (Exception e) {
       System.out.println("Exception during initFunction -> " + e.getMessage());
     }
-
   }
 }
