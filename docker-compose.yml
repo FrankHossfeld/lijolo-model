@@ -14,7 +14,7 @@ services:
       - postgres-data:/var/docker/postgres-data-volume/
 
   init-container-lijolo-dev:
-    image: liquibase/liquibase:4.23-alpine
+    image: liquibase/liquibase:5.0.1-alpine
     deploy:
       restart_policy:
         condition: on-failure
@@ -22,12 +22,13 @@ services:
         max_attempts: 3
     depends_on:
       - postgres-lijolo-dev
-    command: --url=jdbc:postgresql://postgres-lijolo-dev:5432/lijolo-dev --search-path="main" --changelog-file=db.changelog-init.yaml --username=postgres --password postgres --contexts="dev-data" --log-level=INFO update
+    command: --url=jdbc:postgresql://postgres-lijolo-dev:5432/lijolo-dev --classpath=lib/postgresql-42.7.8.jar --search-path="main" --changelog-file=db.changelog-init.yaml --username=postgres --password postgres --contexts="dev-data" --log-level=INFO update
     volumes:
       - ./src/main/resources/db/changelog/init:/liquibase/main/
+      - ./src/lib/org/postgresql/postgresql/42.7.8:/liquibase/lib/
 
   load-container-lijolo-dev:
-    image: liquibase/liquibase:4.23-alpine
+    image: liquibase/liquibase:5.0.1-alpine
     deploy:
       restart_policy:
         condition: on-failure
@@ -36,9 +37,10 @@ services:
     depends_on:
       init-container-lijolo-dev:
         condition: service_completed_successfully
-    command: --url=jdbc:postgresql://postgres-lijolo-dev:5432/lijolo-dev --search-path="docker" --changelog-file=db.changelog-demo.yaml --username=postgres --password postgres --contexts="dev-data" --log-level=INFO update
+    command: --url=jdbc:postgresql://postgres-lijolo-dev:5432/lijolo-dev --classpath=lib/postgresql-42.7.8.jar --search-path="docker" --changelog-file=db.changelog-demo.yaml --username=postgres --password postgres --contexts="dev-data" --log-level=INFO update
     volumes:
       - ./src/docker/db/changelog:/liquibase/docker/
+      - ./src/lib/org/postgresql/postgresql/42.7.8:/liquibase/lib/
 
   # Datenbank mit dem produktiven Schema für die Ermittlung des Update-Changelogs
   postgres-lijolo-prod:
