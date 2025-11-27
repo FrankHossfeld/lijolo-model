@@ -9,10 +9,10 @@ Datenbank-Update. Folgenden Elemente defioniert das Repo:
 * Konfiguration der Datenbank
 * Initiale Daten für DB und JUnit-Tests
 * Bereitstellen der DTOs
-* Record & Jooq-Klassen (werden während des Builds ewrzeugt)
+* Record & Jooq-Klassen (werden während des Builds erzeugt)
 * Mapper & Unmapper
 * UpdateRunner für den "produktiven" Datenbank-Update
-* DockerCompose dür die Erstellung des notwendigen Envirements
+* DockerCompose für die Erstellung des notwendigen Envirements
 
 **Die Build-Pipeline erstellt kein Deployable!** 
 
