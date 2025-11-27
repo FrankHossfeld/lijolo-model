@@ -1,6 +1,10 @@
 # The LijOLo-Demo-Project
 
-Das Projekt zeigt den Einsatz von LiquiBase, jOOQ und LocalStack. In diesem Repo sind die folgenden Elemente defioniert:
+Das Projekt zeigt den Einsatz von LiquiBase, jOOQ, Testcontainer und LocalStack in der Software-Entwicklung.
+Ziel ist eine lokale Cloud-Entwicklung mit automatisierten Tests zu implementieren.
+
+In diesem Repo befinden sich die erforderlichen Daten für die Erstellung der DB, die DTOs, Mapper sowie die Klassen für den automatisierten 
+Datenbank-Update. Folgenden Elemente defioniert das Repo:
 
 * Konfiguration der Datenbank
 * Initiale Daten für DB und JUnit-Tests
@@ -10,21 +14,18 @@ Das Projekt zeigt den Einsatz von LiquiBase, jOOQ und LocalStack. In diesem Repo
 * UpdateRunner für den "produktiven" Datenbank-Update
 * DockerCompose dür die Erstellung des notwendigen Envirements
 
-## Hinweis
+**Die Build-Pipeline erstellt kein Deployable!** 
 
-Es wird kein Artifakt erstellt und ins SNAPSHOT-Repo gepushed. Um die Artefakte zu erzeugen, muss erst das Envirement
-erzeugt werden (unter Verwendung der 'docker compose'-commands.
-
-Im Anschluss sind die Artefakte via `mvn clean install` zu bauen.
+Die Artefakte sind lokal via `mvn clean install` zu erstellen!
 
 ## Requirements
 
-Um das Projekt erfolgreich ausführen zu können, sind folgende Installation auf dem lokalen Rechner erforderlich:
+Um mit dem Projekt lokal arbeiten und erfolgreich ausführen zu können, sind folgende Installation erforderlich:
 
-* Java 21
-* Docker
-* Maven 3
-* AWS CLI
+* Java 21 (https://adoptium.net/de/temurin/releases?version=21&os=any&arch=any)
+* Docker (https://www.docker.com/products/docker-desktop/)
+* Maven 3 (https://maven.apache.org/download.cgi?.)
+* AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ## Vorbereitung
 
@@ -68,6 +69,7 @@ mvn clean install
 
 werden die für die Service-Komponente erforderlichen Artifakte ertellt.
 
+
 ## Trouble-Shooting
 
 ### Docker ab Version 4.52.0
@@ -80,7 +82,7 @@ die hier geladen werden kann: https://docs.docker.com/desktop/release-notes/) od
 vornimmt: 
 
 1. Erzeugen  einer Datei mit Namen **.docker-java.properties**
-2. Folgende Zeile muss in dieye Datei eingetragen werden: **api.version=1.44**
+2. Folgende Zeile muss in diese Datei eingetragen werden: **api.version=1.44**
 
 Im Anschluss ist der Build wieder lauffähig.
 
