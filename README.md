@@ -25,7 +25,6 @@ Um mit dem Projekt lokal arbeiten und erfolgreich ausführen zu können, sind fo
 * Java 21 (https://adoptium.net/de/temurin/releases?version=21&os=any&arch=any)
 * Docker (https://www.docker.com/products/docker-desktop/)
 * Maven 3 (https://maven.apache.org/download.cgi?.)
-* AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
 ## Vorbereitung
 
