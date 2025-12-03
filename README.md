@@ -70,6 +70,14 @@ mvn clean install
 werden die für die Service-Komponente erforderlichen Artifakte ertellt.
 
 
+## Check version of dependencies
+
+To check the version of dependencies, run:
+
+```
+mvn versions:display-dependency-updates
+```
+
 ## Trouble-Shooting
 
 ### Docker ab Version 4.52.0

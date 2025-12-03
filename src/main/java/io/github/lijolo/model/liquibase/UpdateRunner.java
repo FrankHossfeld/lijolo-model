@@ -32,7 +32,7 @@ public class UpdateRunner {
 
   private void setUpChangeLogFiles() {
     this.changeLogFiles = new ArrayList<>();
-    this.changeLogFiles.add("db/changelog/update/db.changelog-4.2.14.yaml");
+    this.changeLogFiles.add("db/changelog/update/db.changelog-1.1.0.yaml");
   }
 
   public void execute()
@@ -101,13 +101,13 @@ public class UpdateRunner {
     String host = System.getProperty("host",
                                      "localhost");
     String port = System.getProperty("port",
-                                     "5439");
+                                     "5463");
     this.password = System.getProperty("password",
                                        "postgres");
     this.user     = System.getProperty("user",
                                        "postgres");
     String databaseName = System.getProperty("database",
-                                             "makaniProd");
+                                             "lijolo-prod");
     String contexts = System.getProperty("contexts",
                                          "prod_update");
     this.jdbcUrl = String.format("jdbc:postgresql://%s:%s/%s",

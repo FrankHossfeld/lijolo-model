@@ -26,14 +26,14 @@
 
   <properties>
     <plugin.version.assembly>3.6.0</plugin.version.assembly>
-    <aws.version>2.38.7</aws.version>
-    <jooq.version>3.20.8</jooq.version>
+    <aws.version>2.39.5</aws.version>
+    <jooq.version>3.20.9</jooq.version>
     <liquibase.version>5.0.1</liquibase.version>
     <postgresql.driver.version>42.7.8</postgresql.driver.version>
     <slf4j.version>2.0.16</slf4j.version>
     <testcontainers.postgresql.version>1.21.3</testcontainers.postgresql.version>
 
-    <testcontainers.version>1.21.3</testcontainers.version>
+    <testcontainers.version>2.0.2</testcontainers.version>
 
     <plugin.version.compiler>3.12.1</plugin.version.compiler>
     <plugin.version.groovy>2.1.1</plugin.version.groovy>
@@ -43,6 +43,7 @@
     <plugin.version.source>3.3.0</plugin.version.source>
     <plugin.version.surefire>3.5.2</plugin.version.surefire>
     <plugin.version.resource>3.3.1</plugin.version.resource>
+    <plugin.version.versions>2.18.0</plugin.version.versions>
 
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -186,7 +187,6 @@
             </goals>
           </execution>
         </executions>
-
         <configuration>
           <logging>INFO</logging>
           <jdbc>
@@ -262,4 +262,80 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>liquibase-update-java</id>
+      <dependencies>
+        <dependency>
+          <groupId>com.github.blagerweij</groupId>
+          <artifactId>liquibase-sessionlock</artifactId>
+          <version>1.6.9</version>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>${plugin.version.assembly}</version>
+            <configuration>
+              <archive>
+                <manifest>
+                  <mainClass>solutions.nalu.makani.model.liquibase.Updater</mainClass> <!-- Replace with your main class -->
+                </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <finalName>makani-shared-model-liquibase-updater</finalName>
+            </configuration>
+            <executions>
+              <execution>
+                <id>make-assembly</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>${plugin.version.versions}</version>
+        <configuration>
+          <ruleSet>
+            <ignoreVersions>
+              <igonreVersion>
+                <type>regex</type>
+                <version>(.+-M\d)</version>
+              </igonreVersion>
+              <igonreVersion>
+                <type>regex</type>
+                <version>.+-(alpha|beta).+</version>
+              </igonreVersion>
+            </ignoreVersions>
+          </ruleSet>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependency-updates-report</report>
+              <report>plugin-updates-report</report>
+              <report>property-updates-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
 </project>
